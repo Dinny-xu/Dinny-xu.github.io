@@ -79,4 +79,25 @@
     
   </entry>
   
+  <entry>
+    <title></title>
+    <link href="https://dinny-xu.github.io/2020/08/02/Linux%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"/>
+    <id>https://dinny-xu.github.io/2020/08/02/Linux%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</id>
+    <published>2020-08-02T12:18:02.660Z</published>
+    <updated>2020-10-19T07:50:07.100Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux-常用命令"><a href="#Linux-常用命令" class="headerlink" title="Linux 常用命令"></a>Linux 常用命令</h1><p>启动Tomcat </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;startup.sh</span><br></pre></td></tr></table></figure><p>关闭Tomcat</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo .&#x2F;shutdown.sh</span><br></pre></td></tr></table></figure><p>​查看日志</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail -f  日志文件名</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">编辑网络环境</span><br></pre></td></tr></table></figure><p>vi /etcresolv.conf</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动Nginx</span><br></pre></td></tr></table></figure><p>sudo /etc/init.d/nginx start</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看服务启动</span><br></pre></td></tr></table></figure><p>systemctl status nginx</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看防火墙状态</span><br></pre></td></tr></table></figure><p>sudo ufw status   –Status: inactive  : 关闭</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">开启防火墙</span><br></pre></td></tr></table></figure><p>sudo ufw enable  –Status: active  : 开启</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">关闭防火墙</span><br></pre></td></tr></table></figure><p>sudo ufw disable</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看防火墙版本</span><br></pre></td></tr></table></figure><p>sudo ufw version</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">默认允许外部访问本机</span><br></pre></td></tr></table></figure><p>sudo ufw default allow</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">默认拒绝外部访问本机</span><br></pre></td></tr></table></figure><p>sudo ufw default deny</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">允许外部访问53端口</span><br></pre></td></tr></table></figure><p>sudo ufw allow 53</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拒绝外部访问53端口</span><br></pre></td></tr></table></figure><p>sudo ufw deny 53</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">允许某个ip 地址访问本机所有端口</span><br></pre></td></tr></table></figure><p>sudo ufw allow from 192.168.0.1</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将目录&#x2F;opt 及其下面的所有文件、子目录的文件主改成 liuhai</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>chown -R liuhai:liuhai /opt </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看某端口的进程</span><br></pre></td></tr></table></figure><p>lsof -i :8080</p><p>```<br>nohup java -java ***.jar </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Linux-常用命令&quot;&gt;&lt;a href=&quot;#Linux-常用命令&quot; class=&quot;headerlink&quot; title=&quot;Linux 常用命令&quot;&gt;&lt;/a&gt;Linux 常用命令&lt;/h1&gt;&lt;p&gt;启动Tomcat &lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
 </feed>
