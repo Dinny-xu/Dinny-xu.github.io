@@ -60,13 +60,13 @@
   </entry>
   
   <entry>
-    <title>创建一篇关于搭建Hexo的博客</title>
+    <title>关于Hexo博客的搭建 For Mac</title>
     <link href="https://dinny-xu.github.io/2020/11/06/%E5%88%9B%E5%BB%BA%E4%B8%80%E7%AF%87%E5%85%B3%E4%BA%8E%E6%90%AD%E5%BB%BAHexo%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
     <id>https://dinny-xu.github.io/2020/11/06/%E5%88%9B%E5%BB%BA%E4%B8%80%E7%AF%87%E5%85%B3%E4%BA%8E%E6%90%AD%E5%BB%BAHexo%E7%9A%84%E5%8D%9A%E5%AE%A2/</id>
     <published>2020-11-06T08:02:28.000Z</published>
-    <updated>2020-11-07T08:12:39.132Z</updated>
+    <updated>2020-11-24T06:21:23.991Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="如何搭建Hexo"><a href="#如何搭建Hexo" class="headerlink" title="如何搭建Hexo"></a>如何搭建Hexo</h2><h3 id="1-所需环境"><a href="#1-所需环境" class="headerlink" title="1. 所需环境"></a>1. 所需环境</h3><pre><code>1.1:Git (版本随意)1.2:Node.js (官网最新版即可)</code></pre><h3 id="2-hexo"><a href="#2-hexo" class="headerlink" title="2.hexo"></a>2.hexo</h3><p>自建目录用于存放 blog的相关信息(/usr/local/lib/node_modules/hexo-cli/hexo) shift + Comm + G 即可到达该隐藏目录</p><pre><code>npm i -g hexo</code></pre><h3 id="3-Github新建仓库用于存放hexo的文件"><a href="#3-Github新建仓库用于存放hexo的文件" class="headerlink" title="3.Github新建仓库用于存放hexo的文件"></a>3.Github新建仓库用于存放hexo的文件</h3><p>新建一个仓库,跟自己的账户名保持一致</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="如何搭建Hexo"><a href="#如何搭建Hexo" class="headerlink" title="如何搭建Hexo"></a>如何搭建Hexo</h2><h3 id="1-所需环境"><a href="#1-所需环境" class="headerlink" title="1. 所需环境"></a>1. 所需环境</h3><pre><code>1.1:Git (版本随意)1.2:Node.js (官网最新版即可)</code></pre><h3 id="2-hexo"><a href="#2-hexo" class="headerlink" title="2.hexo"></a>2.hexo</h3><ul><li>自建目录用于存放 blog的相关信息(/usr/local/lib/node_modules/hexo-cli/hexo) </li><li>shift + Comm + G 即可到达该隐藏目录</li></ul><pre><code>npm i -g hexo</code></pre><h3 id="3-Github新建仓库用于存放hexo的文件"><a href="#3-Github新建仓库用于存放hexo的文件" class="headerlink" title="3.Github新建仓库用于存放hexo的文件"></a>3.Github新建仓库用于存放hexo的文件</h3><ul><li>新建一个仓库,跟自己的账户名保持一致</li><li><img src="https://cdn.xycloud.site/WX20201124-140752.png"></li><li>如下图所示，输入自己项目名称，以.github.io 为后缀,勾选README初始化</li><li><img src="https://cdn.xycloud.site/WX20201124-141155.png"><br><img src="https://cdn.xycloud.site/WX20201124-140550.png"></li><li>点击Settings<br><img src="https://cdn.xycloud.site/WX20201124-141333.png"></li><li>由于我绑定了域名，所以是域名展示，没有绑定域名则以.io/结尾<br><img src="https://cdn.xycloud.site/WX20201124-141514.png"></li><li>点击链接就会跳转到相应的网页了</li></ul><h3 id="结合上述安装的hexo，对GitHub仓库进行绑定"><a href="#结合上述安装的hexo，对GitHub仓库进行绑定" class="headerlink" title="结合上述安装的hexo，对GitHub仓库进行绑定"></a>结合上述安装的hexo，对GitHub仓库进行绑定</h3>]]></content>
     
     
       
