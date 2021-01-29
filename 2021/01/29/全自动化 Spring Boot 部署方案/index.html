@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>全自动化 Spring Boot 部署方案 | Dinny-blog</title><meta name="author" content="Dinny-xu"><meta name="copyright" content="Dinny-xu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="全自动化 Spring Boot 部署方案[TOC] web项目部署Spring Boot 瘦身部署策略准备项目:  自行准备一个Spring Boot 项目 引入瘦身jar包相关pom.xml 依赖  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全自动化 Spring Boot 部署方案">
+<meta property="og:url" content="https://dinny-xu.github.io/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="Dinny-blog">
+<meta property="og:description" content="全自动化 Spring Boot 部署方案[TOC] web项目部署Spring Boot 瘦身部署策略准备项目:  自行准备一个Spring Boot 项目 引入瘦身jar包相关pom.xml 依赖  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xycloud.site/Syncd.png">
+<meta property="article:published_time" content="2021-01-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-29T08:30:21.059Z">
+<meta property="article:author" content="Dinny-xu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xycloud.site/Syncd.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://dinny-xu.github.io/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-29 16:30:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="Dinny-blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar6.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.xycloud.site/Syncd.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Dinny-blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">全自动化 Spring Boot 部署方案</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-28T16:00:00.000Z" title="发表于 2021-01-29 00:00:00">2021-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-29T08:30:21.059Z" title="更新于 2021-01-29 16:30:21">2021-01-29</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="全自动化-Spring-Boot-部署方案"><a href="#全自动化-Spring-Boot-部署方案" class="headerlink" title="全自动化 Spring Boot 部署方案"></a>全自动化 Spring Boot 部署方案</h1><p>[TOC]</p>
+<h2 id="web项目部署"><a href="#web项目部署" class="headerlink" title="web项目部署"></a>web项目部署</h2><h3 id="Spring-Boot-瘦身部署策略"><a href="#Spring-Boot-瘦身部署策略" class="headerlink" title="Spring Boot 瘦身部署策略"></a>Spring Boot 瘦身部署策略</h3><p><strong>准备项目</strong>:</p>
+<ul>
+<li>自行准备一个Spring Boot 项目</li>
+<li>引入瘦身jar包相关pom.xml 依赖</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">      &lt;finalName&gt;demo&lt;&#x2F;finalName&gt;</span><br><span class="line">      &lt;plugins&gt;</span><br><span class="line">          &lt;plugin&gt;</span><br><span class="line">              &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;spring-boot-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">              &lt;dependencies&gt;</span><br><span class="line">                  &lt;dependency&gt;</span><br><span class="line">                      &lt;groupId&gt;org.springframework.boot.experimental&lt;&#x2F;groupId&gt;</span><br><span class="line">                      &lt;artifactId&gt;spring-boot-thin-layout&lt;&#x2F;artifactId&gt;</span><br><span class="line">                      &lt;version&gt;1.0.25.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">                  &lt;&#x2F;dependency&gt;</span><br><span class="line">              &lt;&#x2F;dependencies&gt;</span><br><span class="line">              &lt;configuration&gt;</span><br><span class="line">                  &lt;executable&gt;true&lt;&#x2F;executable&gt;</span><br><span class="line">                  &lt;mainClass&gt;com.study.Application&lt;&#x2F;mainClass&gt;</span><br><span class="line">              &lt;&#x2F;configuration&gt;</span><br><span class="line">              &lt;executions&gt;</span><br><span class="line">                  &lt;execution&gt;</span><br><span class="line">                      &lt;goals&gt;</span><br><span class="line">                          &lt;goal&gt;repackage&lt;&#x2F;goal&gt;</span><br><span class="line">                      &lt;&#x2F;goals&gt;</span><br><span class="line">                  &lt;&#x2F;execution&gt;</span><br><span class="line">              &lt;&#x2F;executions&gt;</span><br><span class="line">          &lt;&#x2F;plugin&gt;</span><br><span class="line"></span><br><span class="line">          &lt;plugin&gt;</span><br><span class="line">              &lt;groupId&gt;org.springframework.boot.experimental&lt;&#x2F;groupId&gt;</span><br><span class="line">              &lt;artifactId&gt;spring-boot-thin-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">              &lt;version&gt;1.0.25.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">              &lt;dependencies&gt;</span><br><span class="line">                  &lt;dependency&gt;</span><br><span class="line">                      &lt;groupId&gt;org.springframework.boot.experimental&lt;&#x2F;groupId&gt;</span><br><span class="line">                      &lt;artifactId&gt;spring-boot-thin-launcher&lt;&#x2F;artifactId&gt;</span><br><span class="line">                      &lt;classifier&gt;exec&lt;&#x2F;classifier&gt;</span><br><span class="line">                      &lt;version&gt;1.0.25.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">                  &lt;&#x2F;dependency&gt;</span><br><span class="line">              &lt;&#x2F;dependencies&gt;</span><br><span class="line">              &lt;executions&gt;</span><br><span class="line">                  &lt;execution&gt;</span><br><span class="line">                      &lt;!-- Download the dependencies at build time --&gt;</span><br><span class="line">                      &lt;id&gt;resolve&lt;&#x2F;id&gt;</span><br><span class="line">                      &lt;goals&gt;</span><br><span class="line">                          &lt;goal&gt;resolve&lt;&#x2F;goal&gt;</span><br><span class="line">                      &lt;&#x2F;goals&gt;</span><br><span class="line">                      &lt;inherited&gt;false&lt;&#x2F;inherited&gt;</span><br><span class="line">                  &lt;&#x2F;execution&gt;</span><br><span class="line">              &lt;&#x2F;executions&gt;</span><br><span class="line">          &lt;&#x2F;plugin&gt;</span><br><span class="line"></span><br><span class="line">          &lt;plugin&gt;</span><br><span class="line">              &lt;artifactId&gt;maven-antrun-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">              &lt;executions&gt;</span><br><span class="line">                  &lt;execution&gt;</span><br><span class="line">                      &lt;id&gt;copy&lt;&#x2F;id&gt;</span><br><span class="line">                      &lt;phase&gt;package&lt;&#x2F;phase&gt;</span><br><span class="line">                      &lt;goals&gt;</span><br><span class="line">                          &lt;goal&gt;run&lt;&#x2F;goal&gt;</span><br><span class="line">                      &lt;&#x2F;goals&gt;</span><br><span class="line">                      &lt;configuration&gt;</span><br><span class="line">                          &lt;target&gt;</span><br><span class="line">                              &lt;copy file&#x3D;&quot;$&#123;project.build.directory&#125;&#x2F;classes&#x2F;application.yml&quot;</span><br><span class="line">                                    todir&#x3D;&quot;$&#123;project.build.directory&#125;&#x2F;thin&#x2F;root&#x2F;config&quot;&#x2F;&gt;</span><br><span class="line">                              &lt;copy file&#x3D;&quot;$&#123;project.build.directory&#125;&#x2F;classes&#x2F;application-$&#123;profileActive&#125;.yml&quot;</span><br><span class="line">                                    todir&#x3D;&quot;$&#123;project.build.directory&#125;&#x2F;thin&#x2F;root&#x2F;config&quot;&#x2F;&gt;</span><br><span class="line">                              &lt;scp file&#x3D;&quot;$&#123;project.build.directory&#125;&#x2F;thin&#x2F;root&#x2F;$&#123;project.build.finalName&#125;.jar&quot;</span><br><span class="line">                                   password&#x3D;&quot;root&quot;</span><br><span class="line">                                   todir&#x3D;&quot;root@192.168.10.88:&#x2F;demo&#x2F;root&quot; trust&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">                              &lt;sshexec</span><br><span class="line">                                      host&#x3D;&quot;192.168.10.88&quot;</span><br><span class="line">                                      username&#x3D;&quot;root&quot;</span><br><span class="line">                                      password&#x3D;&quot;root&quot;</span><br><span class="line">                                      command&#x3D;&quot;cd &#x2F;demo &amp;&amp; sh start.sh restart &quot;</span><br><span class="line">                                      trust&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">                          &lt;&#x2F;target&gt;</span><br><span class="line">                      &lt;&#x2F;configuration&gt;</span><br><span class="line">                  &lt;&#x2F;execution&gt;</span><br><span class="line">              &lt;&#x2F;executions&gt;</span><br><span class="line">              &lt;dependencies&gt;</span><br><span class="line">                  &lt;dependency&gt;</span><br><span class="line">                      &lt;groupId&gt;org.apache.ant&lt;&#x2F;groupId&gt;</span><br><span class="line">                      &lt;artifactId&gt;ant-jsch&lt;&#x2F;artifactId&gt;</span><br><span class="line">                      &lt;version&gt;1.10.9&lt;&#x2F;version&gt;</span><br><span class="line">                  &lt;&#x2F;dependency&gt;</span><br><span class="line">              &lt;&#x2F;dependencies&gt;</span><br><span class="line">          &lt;&#x2F;plugin&gt;</span><br><span class="line">      &lt;&#x2F;plugins&gt;</span><br><span class="line">  &lt;&#x2F;build&gt;</span><br><span class="line"></span><br><span class="line">  &lt;profiles&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">       &lt;!--测试环境--&gt;</span><br><span class="line">          &lt;id&gt;dev&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profileActive&gt;dev&lt;&#x2F;profileActive&gt;</span><br><span class="line">          &lt;&#x2F;properties&gt;</span><br><span class="line">          &lt;activation&gt;</span><br><span class="line">              &lt;activeByDefault&gt;true&lt;&#x2F;activeByDefault&gt;</span><br><span class="line">          &lt;&#x2F;activation&gt;</span><br><span class="line">      &lt;&#x2F;profile&gt;</span><br><span class="line">      &lt;!--生产环境--&gt;</span><br><span class="line">      &lt;profile&gt;</span><br><span class="line">          &lt;id&gt;prod&lt;&#x2F;id&gt;</span><br><span class="line">          &lt;properties&gt;</span><br><span class="line">              &lt;profileActive&gt;prod&lt;&#x2F;profileActive&gt;</span><br><span class="line">          &lt;&#x2F;properties&gt;</span><br><span class="line">      &lt;&#x2F;profile&gt;</span><br><span class="line">  &lt;&#x2F;profiles&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>依赖中 configuration 是将已经瘦身过的项目依赖和项目jar文件上传到指定服务器中</li>
+<li>再执行打包之前配置一个Maven 启动命令</li>
+</ul>
+<p><img src="https://cdn.xycloud.site/iShot2020-12-18%2009.48.18.png"></p>
+<ul>
+<li>配置clean package 一键清空打包</li>
+</ul>
+<p><img src="https://cdn.xycloud.site/iShot2021-01-29%2015.51.28.png"></p>
+<ul>
+<li>执行clean package</li>
+</ul>
+<p><img src="https://cdn.xycloud.site/iShot2021-01-29%2015.55.10.png"></p>
+<ul>
+<li>打包成功后本地jar包会自动上传到服务器并且自动启动项目</li>
+<li>以下为启动脚本 - 部分文件路径需自行更改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#这里指定需要运行的jar包的名字</span><br><span class="line">APP_NAME&#x3D;&quot;&#x2F;demo&#x2F;demo.jar&quot;</span><br><span class="line">THIN_ARGS&#x3D;&quot;-Dthin.root&#x3D;&#x2F;demo&#x2F;root -Dthin.offline&#x3D;true&quot;</span><br><span class="line">JAVA_BIN&#x3D;&quot;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-1.8.0-openjdk-1.8.0.275.b01-0.el7_9.x86_64&#x2F;bin&#x2F;java&quot;</span><br><span class="line">#使用说明，用来提示输入参数</span><br><span class="line">usage() &#123;</span><br><span class="line">    echo &quot;Usage: sh start.sh [start|stop|restart|status|run]&quot;</span><br><span class="line">    exit 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#检查程序是否在运行</span><br><span class="line">is_exist()&#123;</span><br><span class="line">  pid&#x3D;&#96;ps -ef|grep $APP_NAME|grep -v grep|awk &#39;&#123;print $2&#125;&#39; &#96;</span><br><span class="line">  #如果不存在返回1，存在返回0</span><br><span class="line">  if [ -z &quot;$&#123;pid&#125;&quot; ]; then</span><br><span class="line">   return 1</span><br><span class="line">  else</span><br><span class="line">    return 0</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#后台启动</span><br><span class="line">start()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is already running. pid&#x3D;$&#123;pid&#125; .&quot;</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; running with args: nohup $JAVA_BIN $THIN_ARGS -jar $APP_NAME &quot;</span><br><span class="line">    nohup $JAVA_BIN $THIN_ARGS -jar $APP_NAME &gt; poney-system.log 2&gt;&amp;1 &amp;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line">#前台启动</span><br><span class="line">run()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is already running. pid&#x3D;$&#123;pid&#125; .&quot;</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; running with args: java $THIN_ARGS -jar $JVM_ARGS $APP_NAME&quot;</span><br><span class="line">    java $THIN_ARGS -jar $JVM_ARGS $APP_NAME</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#停止方法</span><br><span class="line">stop()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    kill -9 $pid</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is not running&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#输出运行状态</span><br><span class="line">status()&#123;</span><br><span class="line">  is_exist</span><br><span class="line">  if [ $? -eq &quot;0&quot; ]; then</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is running. Pid is $&#123;pid&#125;&quot;</span><br><span class="line">  else</span><br><span class="line">    echo &quot;$&#123;APP_NAME&#125; is NOT running.&quot;</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#重启</span><br><span class="line">restart()&#123;</span><br><span class="line">  stop</span><br><span class="line">  sleep 5</span><br><span class="line">  start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#根据输入参数，选择执行对应方法，不输入则执行使用说明</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">  &quot;start&quot;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">  &quot;run&quot;)</span><br><span class="line">    run</span><br><span class="line">    ;;</span><br><span class="line">  &quot;stop&quot;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">  &quot;status&quot;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">  &quot;restart&quot;)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">  *)</span><br><span class="line">    usage</span><br><span class="line">    ;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li>JAVA_BIN ：必须填写Java 绝对路径</li>
+</ul>
+<h2 id="Docker-部署"><a href="#Docker-部署" class="headerlink" title="Docker 部署"></a>Docker 部署</h2><ul>
+<li>服务器安装Docker 环境<ul>
+<li>根据服务器内核可自行安装相应版本</li>
+</ul>
+</li>
+</ul>
+<h3 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h3><p> <strong>使用Docker 运行jar 文件</strong></p>
+<ul>
+<li>切换root用户，在/etc/docker 目录下创建daemon.json文件，添加镜像源</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;almtd3fa.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启docker </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl docker restart</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拉取Java镜像</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull java-jdk:8</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行Jar文件</li>
+<li>将jar 包放入个人指定的目录，例如：/project/demo</li>
+<li>执行命令生成容器启动jar</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8083 -v &#x2F;project&#x2F;demo:project&#x2F;demo --name demo java:8-jdk java -jar &#x2F;project&#x2F;demo&#x2F;demo.jar</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-d :后台运行</li>
+<li>-p :端口映射</li>
+<li>-v :/project/demo:/project/demo:将宿主机的路径映射到容器中</li>
+<li>-name :定义生成容器的名称</li>
+</ul>
+<h3 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h3><ul>
+<li>利用Docker创建镜像运行jar 文件</li>
+<li>上传jar包到指定的目录</li>
+<li>在该目录下创建Dockerfile文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi Dockerfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将下面内容复制到Dockerfile中</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM java:8</span><br><span class="line">MAINTAINER dinny-xu</span><br><span class="line">ADD docker-demo.jar  demo.jar</span><br><span class="line">COPY config config</span><br><span class="line">EXPOSE 9000</span><br><span class="line">ENTRYPOINT [&quot;java&quot;, &quot;-jar&quot;, &quot;demo.jar&quot;]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>FROM : 基础镜像，基于jdk8镜像开始</li>
+<li>MAINTAINER : 作者</li>
+<li>ADD : 将jar文件添加(复制)到镜像内，docker-demo.jar源文件，demo.jar复制得到的文件</li>
+<li>COPY : 将应用的配置文件拷贝到镜像中</li>
+<li>EXPOSE : 声明端口</li>
+<li>ENTRYPOINT : docker启动时，运行的命令，这里容器启动时直接运行jar服务</li>
+<li>注意：Dockerfile文件与jar包在同一层目录，因为我的Dockerfile文件没有指定jar包目录</li>
+</ul>
+<h2 id="创建好Dockerfile文件之后，执行命令-构建镜像"><a href="#创建好Dockerfile文件之后，执行命令-构建镜像" class="headerlink" title="创建好Dockerfile文件之后，执行命令 构建镜像"></a>创建好Dockerfile文件之后，执行命令 构建镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t demo:test .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>demo : 镜像名称</li>
+<li>test : 镜像的tag，如果不写默认latest</li>
+<li>. :这个 . 一定不能忘记，最后的. 代表本次执行的上下文路径，ADD docker-demo.jar demo.jar ，中间的docker-demo.jar在哪里，就是根据这个 . 确定的，在上述Dockerfile，表示将当前文件夹下的docker-demo.jar和config 文件添加到容器中</li>
+<li>镜像构建成功后可查看镜像</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<h3 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name demo-test -p 9000:9000 -v /project/demo:/project/demo demo:test</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看服务是否启动成功</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据容器CONTAINER ID 查看服务日志<ul>
+<li>1000 表示查看最后1000行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f --tail 1000 &lt;容器ID&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
+<ul>
+<li>由于Dockerfile 启动方式是将jar包打成镜像，所以每次更新Java代码的时候 ，都要先stop 正在运行的容器，将容器删除，再删除镜像，然后重新build 才能算是真正的重启</li>
+<li>写了一个自动化脚本，可以一步到位</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env bash</span><br><span class="line"># 定义应用组名</span><br><span class="line">group_name&#x3D;&#39;demo&#39;</span><br><span class="line"># 定义应用名称</span><br><span class="line">app_name&#x3D;&#39;v1&#39;</span><br><span class="line"># 定义应用版本</span><br><span class="line">app_version&#x3D;&#39;test&#39;</span><br><span class="line"># 定义应用环境</span><br><span class="line">#profile_active&#x3D;&#39;prod&#39;</span><br><span class="line">echo &#39;----stop container----&#39;</span><br><span class="line">docker stop $&#123;group_name&#125;</span><br><span class="line">echo &#39;----rm container----&#39;</span><br><span class="line">docker rm $&#123;group_name&#125;</span><br><span class="line">echo &#39;----rm image----&#39;</span><br><span class="line">docker rmi $&#123;group_name&#125;&#x2F;$&#123;app_name&#125;:$&#123;app_version&#125;</span><br><span class="line"># 打包编译docker镜像</span><br><span class="line">echo &#39;----build image----&#39;</span><br><span class="line">docker build -t $&#123;group_name&#125;&#x2F;$&#123;app_name&#125;:$&#123;app_version&#125; .</span><br><span class="line">echo &#39;----start container----&#39;</span><br><span class="line">docker run  -d --name $&#123;group_name&#125; -p 8083:8083  $&#123;group_name&#125;&#x2F;$&#123;app_name&#125;:$&#123;app_version&#125;</span><br><span class="line">docker logs -f --tail 1000 $&#123;group_name&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>由于瘦身打包会在target 下生成一个thin的文件夹，将文件夹下root文件夹整体压缩上传到服务器</li>
+<li>在root 文件夹中 有config 、repository、Dockerfile、run.sh、demo.jar 5个文件</li>
+</ul>
+<p><img src="https://cdn.xycloud.site/WX20201202-145129.png"></p>
+<ul>
+<li><p>其中Dockerfile 、run.sh 是自己创建的</p>
+</li>
+<li><p>config ：java 的配置文件</p>
+</li>
+<li><p>repository ：java 所有的依赖</p>
+</li>
+<li><p>Dockerfile ：构建脚本</p>
+</li>
+<li><p>run.sh : 自动化构建脚本</p>
+</li>
+<li><p>demo.jar : 压缩之后的代码</p>
+</li>
+<li><p>每次更新pom。需要将repository压缩重新上传至服务器</p>
+</li>
+<li><p>更新配置文件，需要将config重新上传至服务器</p>
+</li>
+<li><p>更新代码只需要将jar 重新上传至服务器</p>
+</li>
+<li><p>上传过后执行 run.sh 自动化脚本</p>
+</li>
+<li><p>进入上传的root目录</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋予执行权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x run.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动脚本</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;run.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>以下为执行过程 如果服务器带宽够高，1秒即可完成</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">----stop container----</span><br><span class="line">poney-gxyj</span><br><span class="line">----rm container----</span><br><span class="line">poney-gxyj</span><br><span class="line">----rm image----</span><br><span class="line">Untagged: poney-gxyj&#x2F;v1.0:demo</span><br><span class="line">Deleted: sha256:97e9f8fec5d44d2e2acc59563616f7f2e3238f6c48a49f04cdde1c3242363ef9</span><br><span class="line">Deleted: sha256:23d55eff264cf069f566a73d40339e7c1d9f40cf7be9932183868ce60bcbe412</span><br><span class="line">Deleted: sha256:08c83f5092c8657672c9f49476bbfd98f36a83140a3fb96f19c49aed46eae83c</span><br><span class="line">Deleted: sha256:47181b7eb20293d21496f9c9dafd88aaa1645b194b53105900f857998a78f74d</span><br><span class="line">Deleted: sha256:416d4abe859b66708aee2f35da681b93f146e9d12e20a88fb0ea8b427aaa54e3</span><br><span class="line">Deleted: sha256:bfd013eb17daa5a9c0f5bc7d70c2513f7bc578b4b95ed54b13ba2b625054e4a9</span><br><span class="line">Deleted: sha256:50338e38139ffcc7b43ed071f45fd68c8f7b8677c20e73f1d972260f2374e1f1</span><br><span class="line">Deleted: sha256:8cd4830dbf8430158cb5a2527be43fbf4e9877688d76138cf61c8cc8d2bd3046</span><br><span class="line">----build image----</span><br><span class="line">Sending build context to Docker daemon    128MB</span><br><span class="line">Step 1&#x2F;6 : FROM ascdc&#x2F;jdk8</span><br><span class="line"> ---&gt; 9f04bbc44406</span><br><span class="line">Step 2&#x2F;6 : EXPOSE 8083</span><br><span class="line"> ---&gt; Running in 297546bb34b6</span><br><span class="line">Removing intermediate container 297546bb34b6</span><br><span class="line"> ---&gt; 43135330a8ce</span><br><span class="line">Step 3&#x2F;6 : ADD docker-demo.jar  demo.jar</span><br><span class="line"> ---&gt; 54565837a3c4</span><br><span class="line">Step 4&#x2F;6 : ADD config config</span><br><span class="line"> ---&gt; ad2bb4201042</span><br><span class="line">Step 5&#x2F;6 : ADD repository repository</span><br><span class="line"> ---&gt; e4867c510670</span><br><span class="line">Step 6&#x2F;6 : ENTRYPOINT [ &quot;java&quot;,&quot;-Dthin.root&#x3D;.&quot;,&quot;-Dthin.offline&#x3D;true&quot;, &quot;-jar&quot;,&quot;poney.jar&quot;]</span><br><span class="line"> ---&gt; Running in eb7c09deb621</span><br><span class="line">Removing intermediate container eb7c09deb621</span><br><span class="line"> ---&gt; 2744d0c21e2b</span><br><span class="line">Successfully built 2744d0c21e2b</span><br><span class="line">Successfully tagged poney-gxyj&#x2F;v1.0:demo</span><br><span class="line">----start container----</span><br><span class="line">1e014b186309432765247c8c7b68e642f9ba48b093349a87342aff241b209b7b</span><br></pre></td></tr></table></figure>
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Dinny-xu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://dinny-xu.github.io/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/">https://dinny-xu.github.io/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://dinny-xu.github.io" target="_blank">Dinny-blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.xycloud.site/Syncd.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/12/18/IDEA%E8%BF%9C%E7%A8%8BDocker(%E9%99%84ssl%E5%8A%A0%E5%AF%86)/"><img class="next-cover" src="https://cdn.xycloud.site/idea.jpeg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">IDEA远程连接Dcoker部署（附ssl连接加密）</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar6.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Dinny-xu</div><div class="author-info__description">You are better than this world.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Dinny-xu" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96-Spring-Boot-%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">全自动化 Spring Boot 部署方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="toc-number">1.1.</span> <span class="toc-text">web项目部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E7%98%A6%E8%BA%AB%E9%83%A8%E7%BD%B2%E7%AD%96%E7%95%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">Spring Boot 瘦身部署策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E9%83%A8%E7%BD%B2"><span class="toc-number">1.2.</span> <span class="toc-text">Docker 部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">方式一：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A"><span class="toc-number">1.2.2.</span> <span class="toc-text">方式二：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A5%BDDockerfile%E6%96%87%E4%BB%B6%E4%B9%8B%E5%90%8E%EF%BC%8C%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4-%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-number">1.3.</span> <span class="toc-text">创建好Dockerfile文件之后，执行命令 构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%95%9C%E5%83%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">运行镜像</span></a></li></ol></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/" title="全自动化 Spring Boot 部署方案"><img src="https://cdn.xycloud.site/Syncd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="全自动化 Spring Boot 部署方案"/></a><div class="content"><a class="title" href="/2021/01/29/%E5%85%A8%E8%87%AA%E5%8A%A8%E5%8C%96%20Spring%20Boot%20%E9%83%A8%E7%BD%B2%E6%96%B9%E6%A1%88/" title="全自动化 Spring Boot 部署方案">全自动化 Spring Boot 部署方案</a><time datetime="2021-01-28T16:00:00.000Z" title="发表于 2021-01-29 00:00:00">2021-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/18/IDEA%E8%BF%9C%E7%A8%8BDocker(%E9%99%84ssl%E5%8A%A0%E5%AF%86)/" title="IDEA远程连接Dcoker部署（附ssl连接加密）"><img src="https://cdn.xycloud.site/idea.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IDEA远程连接Dcoker部署（附ssl连接加密）"/></a><div class="content"><a class="title" href="/2020/12/18/IDEA%E8%BF%9C%E7%A8%8BDocker(%E9%99%84ssl%E5%8A%A0%E5%AF%86)/" title="IDEA远程连接Dcoker部署（附ssl连接加密）">IDEA远程连接Dcoker部署（附ssl连接加密）</a><time datetime="2020-12-17T16:00:00.000Z" title="发表于 2020-12-18 00:00:00">2020-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/18/Autowirde%E4%B8%8EResource/" title="Spring Bean 注入"><img src="https://cdn.xycloud.site/autowired.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Bean 注入"/></a><div class="content"><a class="title" href="/2020/12/18/Autowirde%E4%B8%8EResource/" title="Spring Bean 注入">Spring Bean 注入</a><time datetime="2020-12-17T16:00:00.000Z" title="发表于 2020-12-18 00:00:00">2020-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/02/SpringBoot%E9%A1%B9%E7%9B%AE%E7%98%A6%E8%BA%AB/" title="SpringBoot 项目jar 包瘦身部署"><img src="https://cdn.xycloud.site/WX20201202-151927.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot 项目jar 包瘦身部署"/></a><div class="content"><a class="title" href="/2020/12/02/SpringBoot%E9%A1%B9%E7%9B%AE%E7%98%A6%E8%BA%AB/" title="SpringBoot 项目jar 包瘦身部署">SpringBoot 项目jar 包瘦身部署</a><time datetime="2020-12-02T07:00:00.000Z" title="发表于 2020-12-02 15:00:00">2020-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/02/Linux%20Ubuntu%2016.04.6%20%E6%90%AD%E5%BB%BAVNC%20%E6%9C%8D%E5%8A%A1%20%E8%AE%B0%E5%BD%95%20/" title="Linux Ubuntu 16.04.6 搭建VNC 服务 记录"><img src="https://image.shutterstock.com/image-photo/global-network-modern-creative-telecommunication-600w-1689452017.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux Ubuntu 16.04.6 搭建VNC 服务 记录"/></a><div class="content"><a class="title" href="/2020/12/02/Linux%20Ubuntu%2016.04.6%20%E6%90%AD%E5%BB%BAVNC%20%E6%9C%8D%E5%8A%A1%20%E8%AE%B0%E5%BD%95%20/" title="Linux Ubuntu 16.04.6 搭建VNC 服务 记录">Linux Ubuntu 16.04.6 搭建VNC 服务 记录</a><time datetime="2020-12-02T01:20:00.000Z" title="发表于 2020-12-02 09:20:00">2020-12-02</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Dinny-xu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
