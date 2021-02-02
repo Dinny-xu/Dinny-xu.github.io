@@ -6,7 +6,7 @@
   <link href="https://dinny-xu.github.io/atom.xml" rel="self"/>
   
   <link href="https://dinny-xu.github.io/"/>
-  <updated>2021-01-29T08:30:21.059Z</updated>
+  <updated>2021-02-02T02:29:07.773Z</updated>
   <id>https://dinny-xu.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Install Docker on Linux</title>
+    <link href="https://dinny-xu.github.io/2021/02/02/Linux%20%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85Docker/"/>
+    <id>https://dinny-xu.github.io/2021/02/02/Linux%20%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85Docker/</id>
+    <published>2021-02-01T16:00:00.000Z</published>
+    <updated>2021-02-02T02:29:07.773Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux-快速安装Docker"><a href="#Linux-快速安装Docker" class="headerlink" title="Linux 快速安装Docker"></a>Linux 快速安装Docker</h1><p><strong>CentOS Docker 安装</strong></p><ul><li>CentOS 7 (64-bit)</li><li>CentOS 6.5 (64-bit) 或更高的版本</li></ul><p><strong>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# uname -r </span><br><span class="line">3.10.0-957.10.1.el7.x86_64</span><br></pre></td></tr></table></figure><p><strong>安装一些系统的必要工具</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure><p><strong>添加软件源信息</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure><p><strong>更新yum缓存</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure><p><strong>安装 Docker-ce</strong> (社区免费版)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install docker-ce</span><br></pre></td></tr></table></figure><p><strong>启动Docker 后台服务</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure><p><strong>检查Docker 是否安装成功</strong></p><p><img src="https://cdn.xycloud.site/iShot2021-02-02%2010.16.06.png"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure><p><strong>配置镜像加速</strong></p><ul><li>Aliyun容器镜像加速</li></ul><p><strong>针对Docker客户端版本大于 1.10.0 的用户 您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p &#x2F;etc&#x2F;docker</span><br><span class="line">sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-&#39;EOF&#39;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;3fonio2t.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure><p><strong>请在该配置文件中加入（没有该文件的话，请先建一个）</strong></p><p><strong>新版的 Docker 使用 /etc/docker/daemon.json（Linux）或者 %programdata%\docker\config\daemon.json（Windows） 来配置 Daemon。</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;http:&#x2F;&#x2F;hub-mirror.c.163.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Linux-快速安装Docker&quot;&gt;&lt;a href=&quot;#Linux-快速安装Docker&quot; class=&quot;headerlink&quot; title=&quot;Linux 快速安装Docker&quot;&gt;&lt;/a&gt;Linux 快速安装Docker&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;CentOS</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>全自动化 Spring Boot 部署方案</title>
@@ -391,26 +411,6 @@
       
       
     <summary type="html">&lt;h1 id=&quot;YUM（Fedora-RedHat及类似系统）&quot;&gt;&lt;a href=&quot;#YUM（Fedora-RedHat及类似系统）&quot; class=&quot;headerlink&quot; title=&quot;YUM（Fedora, RedHat及类似系统）&quot;&gt;&lt;/a&gt;YUM（Fedora, RedH</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>RPM包（Fedora, Redhat及类似系统</title>
-    <link href="https://dinny-xu.github.io/2020/10/13/RPM%E5%8C%85%EF%BC%88Fedora,%20Redhat%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%EF%BC%89/"/>
-    <id>https://dinny-xu.github.io/2020/10/13/RPM%E5%8C%85%EF%BC%88Fedora,%20Redhat%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%EF%BC%89/</id>
-    <published>2020-10-13T03:42:30.243Z</published>
-    <updated>2020-11-06T15:34:54.018Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="RPM包（Fedora-Redhat及类似系统）"><a href="#RPM包（Fedora-Redhat及类似系统）" class="headerlink" title="RPM包（Fedora, Redhat及类似系统）"></a>RPM包（Fedora, Redhat及类似系统）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh package.rpm    #安装一个rpm包</span><br><span class="line">rpm -ivh --nodeeps package.rpm   #安装一个rpm包而忽略依赖关系警告</span><br><span class="line">rpm -U package.rpm        #更新一个rpm包但不改变其配置文件</span><br><span class="line">rpm -F package.rpm        #更新一个确定已经安装的rpm包</span><br><span class="line">rpm -e package_name.rpm   #删除一个rpm包</span><br><span class="line">rpm -qa      #显示系统中所有已经安装的rpm包</span><br><span class="line">rpm -qa | grep httpd    #显示所有名称中包含 &quot;httpd&quot; 字样的rpm包</span><br><span class="line">rpm -qi package_name    #获取一个已安装包的特殊信息</span><br><span class="line">rpm -qg &quot;System Environment&#x2F;Daemons&quot;     #显示一个组件的rpm包</span><br><span class="line">rpm -ql package_name       #显示一个已经安装的rpm包提供的文件列表</span><br><span class="line">rpm -qc package_name       #显示一个已经安装的rpm包提供的配置文件列表</span><br><span class="line">rpm -q package_name --whatrequires     #显示与一个rpm包存在依赖关系的列表</span><br><span class="line">rpm -q package_name --whatprovides    #显示一个rpm包所占的体积</span><br><span class="line">rpm -q package_name --scripts         #显示在安装&#x2F;删除期间所执行的脚本l</span><br><span class="line">rpm -q package_name --changelog       #显示一个rpm包的修改历史</span><br><span class="line">rpm -qf &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf    #确认所给的文件由哪个rpm包所提供</span><br><span class="line">rpm -qp package.rpm -l    #显示由一个尚未安装的rpm包提供的文件列表</span><br><span class="line">rpm --import &#x2F;media&#x2F;cdrom&#x2F;RPM-GPG-KEY    #导入公钥数字证书</span><br><span class="line">rpm --checksig package.rpm      #确认一个rpm包的完整性</span><br><span class="line">rpm -qa gpg-pubkey      #确认已安装的所有rpm包的完整性</span><br><span class="line">rpm -V package_name     #检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间</span><br><span class="line">rpm -Va                 #检查系统中所有已安装的rpm包- 小心使用</span><br><span class="line">rpm -Vp package.rpm     #确认一个rpm包还未安装</span><br><span class="line">rpm2cpio package.rpm | cpio --extract --make-directories *bin*   #从一个rpm包运行可执行文件</span><br><span class="line">rpm -ivh &#x2F;usr&#x2F;src&#x2F;redhat&#x2F;RPMS&#x2F;&#96;arch&#96;&#x2F;package.rpm    #从一个rpm源码安装一个构建好的包</span><br><span class="line">rpmbuild --rebuild package_name.src.rpm       #从一个rpm源码构建一个 rpm 包</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;RPM包（Fedora-Redhat及类似系统）&quot;&gt;&lt;a href=&quot;#RPM包（Fedora-Redhat及类似系统）&quot; class=&quot;headerlink&quot; title=&quot;RPM包（Fedora, Redhat及类似系统）&quot;&gt;&lt;/a&gt;RPM包（Fedora, </summary>
       
     
     
