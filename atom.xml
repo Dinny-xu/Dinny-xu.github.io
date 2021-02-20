@@ -6,7 +6,7 @@
   <link href="https://dinny-xu.github.io/atom.xml" rel="self"/>
   
   <link href="https://dinny-xu.github.io/"/>
-  <updated>2021-02-06T06:05:43.327Z</updated>
+  <updated>2021-02-20T06:50:59.044Z</updated>
   <id>https://dinny-xu.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 部署Spring Boot的两种方式</title>
+    <link href="https://dinny-xu.github.io/2021/02/20/windows%E5%AE%89%E8%A3%85MySQL8/"/>
+    <id>https://dinny-xu.github.io/2021/02/20/windows%E5%AE%89%E8%A3%85MySQL8/</id>
+    <published>2021-02-20T06:31:28.000Z</published>
+    <updated>2021-02-20T06:50:59.044Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Windowns-64位安装-MySQL-8-0"><a href="#Windowns-64位安装-MySQL-8-0" class="headerlink" title="Windowns 64位安装 MySQL 8.0+"></a>Windowns 64位安装 MySQL 8.0+</h1><h4 id="官网下载对应的MySQL-版本"><a href="#官网下载对应的MySQL-版本" class="headerlink" title="官网下载对应的MySQL 版本"></a>官网下载对应的MySQL 版本</h4><p><a href="https://dev.mysql.com/downloads/mysql/">https://dev.mysql.com/downloads/mysql/</a></p><p><img src="https://cdn.xycloud.site/iShot2021-02-20%2014.12.03.png"></p><h4 id="将下载的压缩包进行解压"><a href="#将下载的压缩包进行解压" class="headerlink" title="将下载的压缩包进行解压"></a>将下载的压缩包进行解压</h4><p><img src="https://cdn.xycloud.site/iShot2021-02-20%2014.15.27.png"></p><h4 id="配置初始化的my-ini文件的文件"><a href="#配置初始化的my-ini文件的文件" class="headerlink" title="配置初始化的my.ini文件的文件"></a>配置初始化的my.ini文件的文件</h4><p><strong>解压后的目录并没有的my.ini文件，没关系可以自行创建在安装根目录下添加的my.ini（新建文本文件，将文件类型改为的.ini），写入基本配置</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"># 设置3306端口</span><br><span class="line">port&#x3D;3306</span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line">basedir&#x3D;C:\Program Files\MySQL</span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir&#x3D;C:\Program Files\MySQL\Data</span><br><span class="line"># 允许最大连接数</span><br><span class="line">max_connections&#x3D;200</span><br><span class="line"># 允许连接失败的次数。</span><br><span class="line">max_connect_errors&#x3D;10</span><br><span class="line"># 服务端使用的字符集默认为utf8mb4</span><br><span class="line">character-set-server&#x3D;utf8mb4</span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine&#x3D;INNODB</span><br><span class="line"># 默认使用“mysql_native_password”插件认证</span><br><span class="line">#mysql_native_password</span><br><span class="line">default_authentication_plugin&#x3D;mysql_native_password</span><br><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set&#x3D;utf8mb4</span><br><span class="line">[client]</span><br><span class="line"># 设置mysql客户端连接服务端时默认使用的端口</span><br><span class="line">port&#x3D;3306</span><br><span class="line">default-character-set&#x3D;utf8mb4</span><br></pre></td></tr></table></figure><p><strong>配置文件中的路径要和实际存放的路径一致（8.0.18不要手动创建Data文件夹）</strong></p><p><img src="https://cdn.xycloud.site/iShot2021-02-20%2014.17.26.png"></p><h4 id="初始化MySQL"><a href="#初始化MySQL" class="headerlink" title="初始化MySQL"></a>初始化MySQL</h4><p><strong>在安装时，避免权限问题出错我们尽量使用管理员身份运行CMD，否则在安装时会报错，会导致安装失败的情况</strong></p><p><strong>如果MySQL 服务没有安装在C盘，直接在安装目录进行cmd执行即可</strong></p><ul><li>进入到bin目录</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize --console</span><br></pre></td></tr></table></figure><p><img src="https://cdn.xycloud.site/iShot2021-02-20%2014.21.41.png"></p><ul><li>记住这个随机密码用于登录</li></ul><h4 id="安装MySQL服务-启动MySQL-服务"><a href="#安装MySQL服务-启动MySQL-服务" class="headerlink" title="安装MySQL服务+ 启动MySQL 服务"></a>安装MySQL服务+ 启动MySQL 服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --install [服务名]</span><br></pre></td></tr></table></figure><p><strong>如果不写服务名，默认是MySQL</strong></p><p><strong>出现 Service successfully installed.表示安装成功</strong></p><p><strong>MySQL服务安装成功后，启动任务管理器进入服务中右键启动</strong></p><p><strong>启动成功后可使用Navicat 尝试连接</strong></p><h4 id="修改初始密码"><a href="#修改初始密码" class="headerlink" title="修改初始密码"></a>修改初始密码</h4><ul><li>进入bin目录</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p 回车输入密码</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;你的密码&#39;;</span><br></pre></td></tr></table></figure><ul><li>刷新权限</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Windowns-64位安装-MySQL-8-0&quot;&gt;&lt;a href=&quot;#Windowns-64位安装-MySQL-8-0&quot; class=&quot;headerlink&quot; title=&quot;Windowns 64位安装 MySQL 8.0+&quot;&gt;&lt;/a&gt;Windowns 64位安</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Centos 解压安装MySQL</title>
@@ -391,26 +411,6 @@
       
       
     <summary type="html">&lt;h1 id=&quot;APT软件工具-Debian-Ubuntu及类似系统&quot;&gt;&lt;a href=&quot;#APT软件工具-Debian-Ubuntu及类似系统&quot; class=&quot;headerlink&quot; title=&quot;APT软件工具 (Debian, Ubuntu及类似系统)&quot;&gt;&lt;/a&gt;APT软件</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>DEB包 (Debian, Ubuntu及类似系统)</title>
-    <link href="https://dinny-xu.github.io/2020/10/13/DEB%E5%8C%85%20(Debian,%20Ubuntu%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F)/"/>
-    <id>https://dinny-xu.github.io/2020/10/13/DEB%E5%8C%85%20(Debian,%20Ubuntu%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F)/</id>
-    <published>2020-10-13T03:43:13.920Z</published>
-    <updated>2020-11-06T15:34:25.314Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="DEB包-Debian-Ubuntu及类似系统"><a href="#DEB包-Debian-Ubuntu及类似系统" class="headerlink" title="DEB包 (Debian, Ubuntu及类似系统)"></a>DEB包 (Debian, Ubuntu及类似系统)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i package.deb     #安装&#x2F;更新一个 deb 包</span><br><span class="line">dpkg -r package_name    #从系统删除一个 deb 包</span><br><span class="line">dpkg -l                 #显示系统中所有已经安装的 deb 包</span><br><span class="line">dpkg -l | grep httpd    #显示所有名称中包含 &quot;httpd&quot; 字样的deb包</span><br><span class="line">dpkg -s package_name    #获得已经安装在系统中一个特殊包的信息</span><br><span class="line">dpkg -L package_name    #显示系统中已经安装的一个deb包所提供的文件列表</span><br><span class="line">dpkg --contents package.deb    #显示尚未安装的一个包所提供的文件列表</span><br><span class="line">dpkg -S &#x2F;bin&#x2F;ping              #确认所给的文件由哪个deb包提供</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;DEB包-Debian-Ubuntu及类似系统&quot;&gt;&lt;a href=&quot;#DEB包-Debian-Ubuntu及类似系统&quot; class=&quot;headerlink&quot; title=&quot;DEB包 (Debian, Ubuntu及类似系统)&quot;&gt;&lt;/a&gt;DEB包 (Debian, </summary>
       
     
     
