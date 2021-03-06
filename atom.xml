@@ -6,7 +6,7 @@
   <link href="https://dinny-xu.github.io/atom.xml" rel="self"/>
   
   <link href="https://dinny-xu.github.io/"/>
-  <updated>2021-02-20T06:50:59.044Z</updated>
+  <updated>2021-03-06T06:43:38.804Z</updated>
   <id>https://dinny-xu.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GitHub 高级搜索开源项目</title>
+    <link href="https://dinny-xu.github.io/2021/03/06/Github%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2/"/>
+    <id>https://dinny-xu.github.io/2021/03/06/Github%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2/</id>
+    <published>2021-03-06T08:02:28.000Z</published>
+    <updated>2021-03-06T06:43:38.804Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="GitHub-高级搜索"><a href="#GitHub-高级搜索" class="headerlink" title="GitHub 高级搜索"></a>GitHub 高级搜索</h1><p><strong>搜索项目</strong></p><ul><li>以项目名称为例<ul><li>在搜索框输入</li></ul></li></ul><p><img src="https://cdn.xycloud.site/iShot2021-03-06%2014.22.40.png"></p><ul><li>stars数量</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-03-06%2014.24.51.png"></p><ul><li>在readme 中搜索</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-03-06%2014.31.46.png"></p><ul><li>在描述中搜索</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-03-06%2014.35.20.png"></p><ul><li>限定搜索语言或更新时间</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-03-06%2014.39.54.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;GitHub-高级搜索&quot;&gt;&lt;a href=&quot;#GitHub-高级搜索&quot; class=&quot;headerlink&quot; title=&quot;GitHub 高级搜索&quot;&gt;&lt;/a&gt;GitHub 高级搜索&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;搜索项目&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Docker 部署Spring Boot的两种方式</title>
@@ -391,26 +413,6 @@
       
       
     <summary type="html">&lt;h1 id=&quot;查看文件内容&quot;&gt;&lt;a href=&quot;#查看文件内容&quot; class=&quot;headerlink&quot; title=&quot;查看文件内容&quot;&gt;&lt;/a&gt;查看文件内容&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>APT软件工具 (Debian, Ubuntu及类似系统)</title>
-    <link href="https://dinny-xu.github.io/2020/10/13/APT%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%20(Debian,%20Ubuntu%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F)/"/>
-    <id>https://dinny-xu.github.io/2020/10/13/APT%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%20(Debian,%20Ubuntu%E5%8F%8A%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F)/</id>
-    <published>2020-10-13T03:43:32.958Z</published>
-    <updated>2020-11-06T15:34:14.886Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="APT软件工具-Debian-Ubuntu及类似系统"><a href="#APT软件工具-Debian-Ubuntu及类似系统" class="headerlink" title="APT软件工具 (Debian, Ubuntu及类似系统)"></a>APT软件工具 (Debian, Ubuntu及类似系统)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apt-get install package_name      #安装&#x2F;更新一个 deb 包</span><br><span class="line">apt-cdrom install package_name    #从光盘安装&#x2F;更新一个 deb 包</span><br><span class="line">apt-get update      #升级列表中的软件包</span><br><span class="line">apt-get upgrade     #升级所有已安装的软件</span><br><span class="line">apt-get remove package_name     #从系统删除一个deb包</span><br><span class="line">apt-get check     #确认依赖的软件仓库正确</span><br><span class="line">apt-get clean     #从下载的软件包中清理缓存</span><br><span class="line">apt-cache search searched-package    #返回包含所要搜索字符串的软件包名称</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;APT软件工具-Debian-Ubuntu及类似系统&quot;&gt;&lt;a href=&quot;#APT软件工具-Debian-Ubuntu及类似系统&quot; class=&quot;headerlink&quot; title=&quot;APT软件工具 (Debian, Ubuntu及类似系统)&quot;&gt;&lt;/a&gt;APT软件</summary>
       
     
     
