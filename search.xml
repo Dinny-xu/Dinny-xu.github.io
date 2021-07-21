@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Gooogle Search Skill</title>
+      <link href="2021/07/21/Google%20%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/"/>
+      <url>2021/07/21/Google%20%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Google-搜索技巧"><a href="#Google-搜索技巧" class="headerlink" title="Google 搜索技巧"></a>Google 搜索技巧</h1><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2010.58.27.png"></p><h2 id="site"><a href="#site" class="headerlink" title="site"></a>site</h2><ul><li><p>语法: site</p></li><li><p>作用: 限定在特定的网址中搜索</p></li><li><p>有时候全网搜索有点像大海捞针，而如果我们有特别关心的网站，想只显示这个网站的搜索结果，就可以用到site语法，比如我在微软的官网内搜索漏洞编号CVE-2014-4114：</p></li></ul><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.01.42.png"></p><ul><li>可以看到，显示的结果都是在指定网站中的，大大减少了我们在海量信息中的筛选成本。</li></ul><h2 id="filetype"><a href="#filetype" class="headerlink" title="filetype"></a>filetype</h2><ul><li>语法: filetype</li><li>作用: 搜索特定的文件类型</li><li>有时候我们想找特定类型的文档，比如PPT、PDF等，但默认情况下出来的都是网页，很难找到我们想要的内容，这个时候就可以用上filetype语法。比如我想搜索web安全相关的PDF电子书：</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.04.09.png"></p><ul><li>可以看到所有的文档格式全部是PDF</li></ul><h2 id="inurl"><a href="#inurl" class="headerlink" title="inurl"></a>inurl</h2><ul><li>语法: inurl</li><li>作用: 在URL中搜索出现指定内容的链接</li><li>这一个语法有什么用？普通人很少直接关心链接本身的内容，但是对于咱们hacker来说，URL就重要了，比如我们可以用来搜索可能存在SQL注入的链接：</li></ul>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inurl: php?id = </span><br><span class="line">inurl: jsp?id = </span><br><span class="line">inurl : asp?id = </span><br></pre></td></tr></table></figure><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.11.43.png"></p><ul><li><p>除了SQL注入，还可以搜索可能存在的网站后台管理入口：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inurl:login.php</span><br><span class="line">inurl:login.jsp</span><br><span class="line">inurl:login.asp</span><br></pre></td></tr></table></figure></li><li><p>如果我们再加上前面的site语法组合使用，就可以找出指定网站的这种链接了，定向寻找攻击点。</p></li></ul><h2 id="intitle"><a href="#intitle" class="headerlink" title="intitle"></a>intitle</h2><ul><li>语法:intitle</li><li>作用:在网页title中搜索出现指定内容的网页</li><li>除了在URL中搜索，咱们还能在标题中搜索。一般网站后台管理页面都会带有“后台”、“管理”、“登录”等字眼，我们可以通过在HTML的title字段位置搜索这些关键词，寻找可疑的后台登录页面</li></ul><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.14.35.png"></p><h2 id="intext"><a href="#intext" class="headerlink" title="intext"></a>intext</h2><ul><li><p>语法:intext</p></li><li><p>作用:除了URL和title，剩下的就是正文位置搜索了</p></li><li><p>比如我们搜索使用discuz搭建的论坛网站：</p></li></ul><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.16.27.png"></p><ul><li>更多有价值的搜索语句可参考 <a href="https://www.exploit-db.com/google-hacking-database">https://www.exploit-db.com/google-hacking-database</a></li></ul><p><img src="https://cdn.xycloud.site/iShot2021-07-21%2011.18.38.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Google </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Google </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RabbitMQ 多源配置</title>
       <link href="2021/06/18/RabbitMQ%20%E5%A4%9A%E6%BA%90%E9%85%8D%E7%BD%AE/"/>
       <url>2021/06/18/RabbitMQ%20%E5%A4%9A%E6%BA%90%E9%85%8D%E7%BD%AE/</url>
